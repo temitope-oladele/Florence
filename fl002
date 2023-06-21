@@ -1,0 +1,97 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class AccountCreation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Account Creation!");
+        System.out.println("Please provide the following details:");
+
+        // Get biodata from user
+        String firstName = getInput("First Name", scanner, true);
+        String middleName = getInput("Middle Name", scanner, false);
+        String lastName = getInput("Last Name", scanner, true);
+        LocalDate dateOfBirth = getDateOfBirth(scanner);
+        String phoneNumber = getInput("Phone Number", scanner, true);
+        String address = getInput("Address", scanner, true);
+        String idType = getInput("ID Type", scanner, true);
+        String idNumber = getInput("ID Card Number", scanner, true);
+
+        // Store customer details
+        CustomerDetails customer = new CustomerDetails(firstName, middleName, lastName, dateOfBirth, phoneNumber, address, idType, idNumber);
+
+        System.out.println("\nAccount Creation Successful!");
+        System.out.println("Customer Details:\n" + customer);
+    }
+
+    private static String getInput(String field, Scanner scanner, boolean isRequired) {
+        String input;
+
+        do {
+            System.out.print(field + ": ");
+            input = scanner.nextLine();
+
+            if (isRequired && input.isEmpty()) {
+                System.out.println("Please enter a valid " + field + ".");
+            } else {
+                break;
+            }
+        } while (true);
+
+        return input;
+    }
+
+    private static LocalDate getDateOfBirth(Scanner scanner) {
+        LocalDate dateOfBirth;
+
+        do {
+            String input = getInput("Date of Birth (MM/dd/yyyy)", scanner, true);
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                dateOfBirth = LocalDate.parse(input, formatter);
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please enter the date in MM/dd/yyyy format.");
+            }
+        } while (true);
+
+        return dateOfBirth;
+    }
+
+    static class CustomerDetails {
+        private String firstName;
+        private String middleName;
+        private String lastName;
+        private LocalDate dateOfBirth;
+        private String phoneNumber;
+        private String address;
+        private String idType;
+        private String idNumber;
+
+        public CustomerDetails(String firstName, String middleName, String lastName, LocalDate dateOfBirth, String phoneNumber, String address, String idType, String idNumber) {
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.lastName = lastName;
+            this.dateOfBirth = dateOfBirth;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
+            this.idType = idType;
+            this.idNumber = idNumber;
+        }
+
+        @Override
+        public String toString() {
+            return "First Name: " + firstName +
+                    "\nMiddle Name: " + middleName +
+                    "\nLast Name: " + lastName +
+                    "\nDate of Birth: " + dateOfBirth +
+                    "\nPhone Number: " + phoneNumber +
+                    "\nAddress: " + address +
+                    "\nID Type: " + idType +
+                    "\nID Card Number: " + idNumber;
+        }
+    }
+}

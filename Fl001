@@ -1,0 +1,64 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class LoginPage {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Login Page!");
+        System.out.println("Please create a username and password:");
+
+        // Get username from user
+        String username = getUsername(scanner);
+
+        // Get password from user
+        String password = getPassword(scanner);
+
+        System.out.println("Registration Successful!");
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+    }
+
+    private static String getUsername(Scanner scanner) {
+        String username;
+        boolean isValidUsername = false;
+
+        do {
+            System.out.print("Username (minimum 5 characters, alphanumeric only): ");
+            username = scanner.nextLine();
+
+            // Validate username using ISO standard (alphanumeric only)
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{5,}$");
+            Matcher matcher = pattern.matcher(username);
+            isValidUsername = matcher.matches();
+
+            if (!isValidUsername) {
+                System.out.println("Invalid username format. Please try again.");
+            }
+        } while (!isValidUsername);
+
+        return username;
+    }
+
+    private static String getPassword(Scanner scanner) {
+        String password;
+        boolean isValidPassword = false;
+
+        do {
+            System.out.print("Password (minimum 8 characters, alphanumeric with at least one special character): ");
+            password = scanner.nextLine();
+
+            // Validate password using ISO standard (minimum 8 characters, alphanumeric with at least one special character)
+            Pattern pattern = Pattern.compile("^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+            Matcher matcher = pattern.matcher(password);
+            isValidPassword = matcher.matches();
+
+            if (!isValidPassword) {
+                System.out.println("Invalid password format. Please try again.");
+            }
+        } while (!isValidPassword);
+
+        return password;
+    }
+}
