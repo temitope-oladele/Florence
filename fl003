@@ -1,0 +1,75 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class AccountLogin {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Login Page!");
+        System.out.println("Please enter your username and password:");
+
+        // Get username and password from user
+        String username = getUsername(scanner);
+        String password = getPassword(scanner);
+
+        // Simulate login process
+        boolean isLoggedIn = performLogin(username, password);
+
+        if (isLoggedIn) {
+            System.out.println("Login Successful!");
+
+            // Get last login date
+            LocalDate lastLoginDate = getLastLoginDate(username);
+            System.out.println("Last Login Date: " + lastLoginDate);
+
+            // Get environment temperature
+            double temperature = getTemperature();
+            System.out.println("Current Temperature: " + temperature + "°C");
+
+            // Get weather forecasts
+            String[] weatherForecasts = getWeatherForecasts();
+            System.out.println("Weather Forecasts:");
+            for (String forecast : weatherForecasts) {
+                System.out.println(forecast);
+            }
+        } else {
+            System.out.println("Login Failed. Invalid username or password.");
+        }
+    }
+
+    private static String getUsername(Scanner scanner) {
+        System.out.print("Username: ");
+        return scanner.nextLine();
+    }
+
+    private static String getPassword(Scanner scanner) {
+        System.out.print("Password: ");
+        return scanner.nextLine();
+    }
+
+    private static boolean performLogin(String username, String password) {
+        // Perform actual login validation here
+        // Return true if login is successful, false otherwise
+        return true;
+    }
+
+    private static LocalDate getLastLoginDate(String username) {
+        // Simulate retrieving last login date from a database or storage
+        // Return a dummy date for demonstration purposes
+        return LocalDate.now().minusDays(5);
+    }
+
+    private static double getTemperature() {
+        // Simulate retrieving temperature data from an external service or sensor
+        // Return a random temperature for demonstration purposes
+        return Math.random() * 30; // In Celsius
+    }
+
+    private static String[] getWeatherForecasts() {
+        // Simulate retrieving weather forecasts from an external service or API
+        // Return dummy forecasts for demonstration purposes
+        return new String[]{"Sunny", "Partly Cloudy", "Chance of Rain"};
+    }
+}
